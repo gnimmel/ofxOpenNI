@@ -8,12 +8,10 @@ void ofxONI::initWithRecording(string recorded_file) {
 	xml.addLicense("PrimeSense","0KOIk2JeIBYClPWVnMoRKn5cdY4=");
 	xml.setLogging(true,false,0);
 	xml.addLoggingMask("ALL",true);
-	//"roxlu_posing.oni"
 	xml.addRecording(recorded_file);
 	xml.addUserNode();
 	
 	context.setupUsingXMLObject(xml);
-	
 	depth.setup(&context);
 	user.setup(&context, &depth);
 	image.setup(&context);
