@@ -36,12 +36,13 @@ bool ofxOpenNIContext::setupUsingRecording(std::string sFileRecording) {
 }
 
 bool ofxOpenNIContext::setupUsingXMLObject(ofxOpenNIXML oXML) {
+	// kind of a hack to use a custom generated xml file/script. 
 	std::string xml = oXML.getXML();
 	string tmp_name = ofToDataPath("tmp.xml",true);
 	ofstream ofs(tmp_name.c_str());
 	ofs << xml.c_str();
 	ofs.close();
-	setupUsingXMLFile(tmp_name);
+	return setupUsingXMLFile(tmp_name);
 	//return runXMLScript(xml);
 }
 

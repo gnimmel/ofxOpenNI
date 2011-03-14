@@ -271,6 +271,7 @@ void ofxUserGenerator::draw() {
 	}
 
 	drawUsers();
+	/*
 	if(!found_user) {
 		glColor3f(1.0, 0, 0);
 	}
@@ -278,6 +279,7 @@ void ofxUserGenerator::draw() {
 		glColor3f(0.0, 1, 0);
 	}
 	ofCircle(10,10,10);
+	*/
 }
 
 

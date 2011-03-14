@@ -91,8 +91,8 @@ void ofxTrackedUser::updateLimb(ofxLimb& rLimb) {
 		.ConvertRealWorldToProjective(2, pos, pos);
 
 	rLimb.found = true;
-	rLimb.begin.set(pos[0].X, pos[0].Y);
-	rLimb.end.set(pos[1].X, pos[1].Y);	
+	rLimb.begin.set(pos[0].X, pos[0].Y, pos[0].Z);
+	rLimb.end.set(pos[1].X, pos[1].Y, pos[1].Z);	
 }
 
 void ofxTrackedUser::debugDraw() {

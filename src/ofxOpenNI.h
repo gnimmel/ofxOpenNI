@@ -5,3 +5,4 @@
 #include "ofxImageGenerator.h"
 #include "ofxOpenNIRecorder.h"
 #include "ofxOpenNIXML.h"
+#include "ofxONI.h"

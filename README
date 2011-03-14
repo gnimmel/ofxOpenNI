@@ -16,7 +16,7 @@ git checkout experimental
 HOW TO SETUP YOUR APPLICATION
 ==============================
 - In XCode, create a new group "ofxOpenNI"
-- Draw these directories from ofxOpenNI into this new group: ofxOpenNI/src
+- Drag these directories from ofxOpenNI into this new group: ofxOpenNI/src
 - Add a search path to: ../../../addons/ofxOpenNI/include/
 - Copy the "ofxOpenNI/mac/copy_to_data_path" to your bin/data directory of your application. 
 - Drag and drop the file: bin/data/openni/lib/libOpenNI.dylib into your project
