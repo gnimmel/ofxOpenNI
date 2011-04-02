@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-	context.initFromXMLFile();
+	context.setupUsingXMLFile(ofToDataPath("openni/config/ofxopenni_config.xml", true));
 	depth.setup(&context);
 	user.setup(&context, &depth);
 }
@@ -11,12 +11,13 @@ void testApp::setup(){
 void testApp::update(){
 	context.update();
 	user.update();
+
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	//depth.draw(0,0,640,480);
-	//user.draw();
+	depth.draw(0,0,640,480);
+	user.draw();
 	ofxTrackedUser* tracked = user.getTrackedUser(0);
 	if(tracked != NULL) {
 		tracked->debugDraw();
@@ -58,3 +59,12 @@ void testApp::windowResized(int w, int h){
 
 }
 
+//--------------------------------------------------------------
+void testApp::gotMessage(ofMessage msg){
+
+}
+
+//--------------------------------------------------------------
+void testApp::dragEvent(ofDragInfo dragInfo){ 
+
+}
