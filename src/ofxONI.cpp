@@ -17,6 +17,12 @@ void ofxONI::initWithRecording(string recorded_file) {
 	image.setup(&context);
 }
 
+void ofxONI::initWithXML() {
+	context.setupUsingXMLFile(ofToDataPath("openni/config/ofxopenni_config.xml", true));
+	depth.setup(&context);
+	user.setup(&context, &depth);
+	image.setup(&context);
+}
 
 void ofxONI::update() {
 	context.update();
@@ -42,3 +48,18 @@ void ofxONI::drawUsers() {
 	user.draw();
 }
 	
+ofxDepthGenerator& ofxONI::getDepthGen() {
+	return depth;
+}
+
+ofxImageGenerator& ofxONI::getImageGen() {
+	return image;
+}
+
+ofxUserGenerator& ofxONI::getUserGen() {
+	return user;
+}
+
+ofxOpenNIContext& ofxONI::getContext() {
+	return context;
+}	

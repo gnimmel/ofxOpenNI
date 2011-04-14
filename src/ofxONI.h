@@ -17,11 +17,17 @@ class ofxONI {
 public:
 	ofxONI();
 	void initWithRecording(string recorded_file);
+	void initWithXML();
 	void update();
 	void draw(); // draws all initialized video
 	void drawImage(float x = 0, float y = 0, float width = 640, float height = 480);
 	void drawDepth(float x = 650, float y = 0, float width = 320, float height = 240);
 	void drawUsers(); // TODO: add coordinates.
+	
+	ofxOpenNIContext& getContext();
+	ofxDepthGenerator& getDepthGen();
+	ofxImageGenerator& getImageGen();
+	ofxUserGenerator& getUserGen();
 	
 	ofxOpenNIContext context;
 	ofxImageGenerator image;

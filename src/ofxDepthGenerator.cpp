@@ -40,9 +40,18 @@ void CreateRainbowPallet() {
 	}
 }
 
+unsigned char* ofxDepthGenerator::getPixels() {
+	return depth_pixels;
+}
+
+unsigned char* ofxDepthGenerator::getGrayPixels(){
+	return gray_pixels;
+}
+
+
 ofxDepthGenerator::ofxDepthGenerator(){
 	CreateRainbowPallet();	
-	depth_coloring = 2;
+	depth_coloring = 3;
 }
 
 bool ofxDepthGenerator::setup(ofxOpenNIContext* pContext) {
@@ -93,6 +102,7 @@ bool ofxDepthGenerator::setup(ofxOpenNIContext* pContext) {
 	
 	depth_texture.allocate(map_mode.nXRes, map_mode.nYRes, GL_RGBA);		
 	depth_pixels = new unsigned char[map_mode.nXRes * map_mode.nYRes * 4];
+	gray_pixels = new unsigned char[map_mode.nXRes * map_mode.nYRes];
 	memset(depth_pixels, 0, map_mode.nXRes * map_mode.nYRes * 4 * sizeof(unsigned char));
 		
 	depth_generator.StartGenerating();	
@@ -125,6 +135,50 @@ void ofxDepthGenerator::generateTexture(){
 	if (dmd.PixelFormat() == XN_PIXEL_FORMAT_RGB24) {
 		printf("its in yuv\n");
 	}
+	
+	//----
+	memset(depth_hist, 0, MAX_DEPTH * sizeof(float));
+	unsigned int num_of_points = 0;
+	for (XnUInt y = 0; y <dmd.YRes(); ++y) {
+		for (XnUInt x = 0; x < dmd.XRes(); ++x, ++depth)	{
+			if (*depth != 0) {
+				depth_hist[*depth]++;
+				num_of_points++;
+			}
+		}
+	}
+
+	for (int i=1; i < MAX_DEPTH; i++) {
+		depth_hist[i] += depth_hist[i-1];
+	}
+	
+	if(num_of_points) {
+		for(int i = 0; i < MAX_DEPTH; ++i) {
+			depth_hist[i] = (unsigned int)(256 * (1.0f - (depth_hist[i] / num_of_points)));
+		}
+	}
+	depth = dmd.Data();
+	
+	for(XnUInt y = 0; y < dmd.YRes(); ++y) {
+		int y_dx = y * dmd.XRes();
+		int x_dx = dmd.XOffset();
+		unsigned char * texture = (unsigned char*)depth_pixels + y_dx * 4 + x_dx *4;
+		for(XnUInt x = 0; x < dmd.XRes();  x++, depth++, texture+=4) {
+			if(*depth != 0) {
+				int hist_value = depth_hist[*depth];
+				texture[0] = hist_value;
+				texture[1] = hist_value;
+				texture[2] = 0;
+				texture[3] = 255;
+				gray_pixels[(y_dx + x_dx + x)] = hist_value;
+			}
+		}
+	}
+		
+	depth_texture.loadData((unsigned char *)depth_pixels,dmd.XRes(), dmd.YRes(), GL_RGBA);	
+	return; 
+	//----
+	
 	
 	// copy depth into texture-map
 	for (XnUInt16 y = dmd.YOffset(); y < dmd.YRes() + dmd.YOffset(); y++) {
