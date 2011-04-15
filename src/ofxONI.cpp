@@ -22,11 +22,13 @@ void ofxONI::initWithXML() {
 	depth.setup(&context);
 	user.setup(&context, &depth);
 	image.setup(&context);
+//	hand.setup(&context);
 }
 
 void ofxONI::update() {
 	context.update();
 	user.update();
+	depth.update();
 }
 
 void ofxONI::draw() {

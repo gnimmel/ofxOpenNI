@@ -48,8 +48,10 @@ unsigned char* ofxDepthGenerator::getGrayPixels(){
 	return gray_pixels;
 }
 
-
-ofxDepthGenerator::ofxDepthGenerator(){
+ofxDepthGenerator::ofxDepthGenerator()
+:front(1500)
+,back(2000)
+{
 	CreateRainbowPallet();	
 	depth_coloring = 3;
 }
@@ -109,8 +111,12 @@ bool ofxDepthGenerator::setup(ofxOpenNIContext* pContext) {
 	return true;
 	
 }
-void ofxDepthGenerator::draw(float x, float y, float w, float h){
+
+void ofxDepthGenerator::update() {
 	generateTexture();
+}
+
+void ofxDepthGenerator::draw(float x, float y, float w, float h){
 	glColor3f(1,1,1);
 	depth_texture.draw(x, y, w, h);	
 }
@@ -137,23 +143,24 @@ void ofxDepthGenerator::generateTexture(){
 	}
 	
 	//----
-	memset(depth_hist, 0, MAX_DEPTH * sizeof(float));
+	
+	memset(depth_hist, 0, back * sizeof(float));
 	unsigned int num_of_points = 0;
 	for (XnUInt y = 0; y <dmd.YRes(); ++y) {
 		for (XnUInt x = 0; x < dmd.XRes(); ++x, ++depth)	{
-			if (*depth != 0) {
+			if (*depth != 0 && *depth >= front && *depth <= back) {
 				depth_hist[*depth]++;
 				num_of_points++;
 			}
 		}
 	}
 
-	for (int i=1; i < MAX_DEPTH; i++) {
+	for (int i=1; i < back; i++) {
 		depth_hist[i] += depth_hist[i-1];
 	}
 	
 	if(num_of_points) {
-		for(int i = 0; i < MAX_DEPTH; ++i) {
+		for(int i = 0; i < back; ++i) {
 			depth_hist[i] = (unsigned int)(256 * (1.0f - (depth_hist[i] / num_of_points)));
 		}
 	}
@@ -171,6 +178,13 @@ void ofxDepthGenerator::generateTexture(){
 				texture[2] = 0;
 				texture[3] = 255;
 				gray_pixels[(y_dx + x_dx + x)] = hist_value;
+			}
+			else {
+				texture[0] = 0;
+				texture[1] = 0;
+				texture[2] = 0;
+				texture[3] = 255;
+				gray_pixels[(y_dx + x_dx + x)] = 0;
 			}
 		}
 	}

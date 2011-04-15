@@ -11,13 +11,18 @@ public:
 	
 	void generateTexture();
 	
+	void update();
+	
 	void draw(float x=0, float y=0, float w=640, float h=480);
 	
 	unsigned char* getPixels();
 	unsigned char* getGrayPixels();
 	
 	xn::DepthGenerator& getXnDepthGenerator();
-	
+
+
+	XnUInt front; // front plane mm.
+	XnUInt back; // back plane in mm.
 private:
 	xn::DepthGenerator depth_generator;
 	ofTexture depth_texture;

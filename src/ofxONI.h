@@ -4,6 +4,7 @@
 #include "ofxOpenNIContext.h"
 #include "ofxImageGenerator.h"
 #include "ofxUserGenerator.h"
+//#include "ofxHandDetector.h"
 
 /** 
  * TODO: implement all features in this helper class.
@@ -33,6 +34,8 @@ public:
 	ofxImageGenerator image;
 	ofxDepthGenerator depth;
 	ofxUserGenerator user;
+	//ofxHandDetector hand;
+	
 private:
 	
 };
