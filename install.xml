@@ -1,0 +1,20 @@
+<install>
+	<name>ofxOpenNI</name>
+	<version>0.01</version>
+	<author>Diederick Huijbers</author>
+	<author_website>http://www.roxlu.com</author_website>
+	<code_url>https://github.com/roxlu/ofxOpenNI</code_url>
+	<site_url>http://www.roxlu.com</site_url>
+	<download_url>https://github.com/roxlu/ofxOpenNI/zipball/experimental</download_url>
+	<forum_url></forum_url>
+	<supported_os>
+		<win>n</win>
+    		<mac>y</mac>
+    		<linux>n</linux>
+    	</supported_os>
+    <description><![CDATA[
+Easy to install and use wrapper for OpenNI and NITE with user tracking and skeleton detection (in beta)  
+    ]]></description>
+    <has_example>y</has_example>
+</install>
+
