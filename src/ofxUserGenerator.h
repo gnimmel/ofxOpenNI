@@ -2,7 +2,7 @@
 
 #include "ofxOpenNIContext.h"
 #include "ofxDepthGenerator.h"
-#include <vector>
+#include "ofMain.h"
 
 class ofxTrackedUser;
 
@@ -29,6 +29,8 @@ public:
 	xn::UserGenerator& getXnUserGenerator();
 	
 	ofxTrackedUser* getTrackedUser(int nUserNum);
+	
+	ofVec3f getUserCenter(int nUserNum);
 	
 	std::vector<ofxTrackedUser*> getTrackedUsers();
 

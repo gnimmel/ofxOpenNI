@@ -70,6 +70,10 @@ void ofxTrackedUser::updateBonePositions() {
 	updateLimb(hip);	
 }
 
+ofVec3f ofxTrackedUser::getCenter() {
+	return (neck.begin + neck.end) * 0.5;
+}
+
 void ofxTrackedUser::updateLimb(ofxLimb& rLimb) {
 	if(!xn_user_generator->GetSkeletonCap().IsTracking(id)) {
 		//printf("Not tracking this user: %d\n", id);
@@ -87,12 +91,14 @@ void ofxTrackedUser::updateLimb(ofxLimb& rLimb) {
 	XnPoint3D pos[2];
 	pos[0] = a.position;
 	pos[1] = b.position;
+	/*
 	depth_generator->getXnDepthGenerator()
 		.ConvertRealWorldToProjective(2, pos, pos);
-
+*/
 	rLimb.found = true;
-	rLimb.begin.set(pos[0].X, pos[0].Y, pos[0].Z);
-	rLimb.end.set(pos[1].X, pos[1].Y, pos[1].Z);	
+	rLimb.begin.set(pos[0].X/10, pos[0].Y/10, -pos[0].Z/10);
+	rLimb.end.set(pos[1].X/10, pos[1].Y/10, -pos[1].Z/10);	
+	//cout << rLimb.begin << endl;
 }
 
 void ofxTrackedUser::debugDraw() {

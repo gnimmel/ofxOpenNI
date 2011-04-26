@@ -49,8 +49,8 @@ unsigned char* ofxDepthGenerator::getGrayPixels(){
 }
 
 ofxDepthGenerator::ofxDepthGenerator()
-:front(1500)
-,back(2000)
+:front(1)
+,back(MAX_DEPTH)
 {
 	CreateRainbowPallet();	
 	depth_coloring = 3;

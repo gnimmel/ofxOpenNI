@@ -22,7 +22,7 @@ void ofxONI::initWithXML() {
 	depth.setup(&context);
 	user.setup(&context, &depth);
 	image.setup(&context);
-//	hand.setup(&context);
+	recorder.setup(&context, &depth, &image);
 }
 
 void ofxONI::update() {
@@ -65,3 +65,11 @@ ofxUserGenerator& ofxONI::getUserGen() {
 ofxOpenNIContext& ofxONI::getContext() {
 	return context;
 }	
+
+void ofxONI::startRecord(string sFileName) {
+	recorder.startRecord(sFileName);
+}
+
+void ofxONI::stopRecord() {
+	recorder.stopRecord();
+}

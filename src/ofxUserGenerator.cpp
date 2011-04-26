@@ -283,6 +283,16 @@ void ofxUserGenerator::draw() {
 }
 
 
+ofVec3f ofxUserGenerator::getUserCenter(int nUserNum) {
+	ofVec3f center(0,0,0);
+	ofxTrackedUser* user = getTrackedUser(nUserNum);
+	if(user == NULL) {
+		cout << "User " << nUserNum << " not found." << endl;
+		return center;
+	}
+	return user->getCenter();
+}
+
 //----------------------------------------
 void ofxUserGenerator::startTracking(XnUserID nID) {
 	user_generator.GetSkeletonCap().StartTracking(nID);

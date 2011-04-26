@@ -31,8 +31,8 @@ struct ofxLimb {
 		glColor3f(1,0,0);
 		glBegin(GL_LINES);
 			//std::cout << position[0].X << ", " << position[0].Y << std::endl;
-			glVertex2f(begin.x, begin.y);
-			glVertex2f(end.x, end.y);
+			glVertex3f(begin.x, begin.y, begin.z);
+			glVertex3f(end.x, end.y, end.z);
 			//glVertex2i(position[0].X, position[0].Y);
 			//glVertex2i(position[1].X, position[1].Y);
 		glEnd();
@@ -76,7 +76,8 @@ public:
 
 	ofxLimb hip;
 	XnUserID id;
-
+	
+	ofVec3f getCenter();
 
 private:
 	ofxTrackedUser(ofxUserGenerator* pGenerator, ofxDepthGenerator* pDepthGenerator);

@@ -4,6 +4,8 @@
 #include "ofxOpenNIContext.h"
 #include "ofxImageGenerator.h"
 #include "ofxUserGenerator.h"
+#include "ofxOpenNIRecorder.h"
+
 //#include "ofxHandDetector.h"
 
 /** 
@@ -24,7 +26,8 @@ public:
 	void drawImage(float x = 0, float y = 0, float width = 640, float height = 480);
 	void drawDepth(float x = 650, float y = 0, float width = 320, float height = 240);
 	void drawUsers(); // TODO: add coordinates.
-	
+	void startRecord(string sFileName);
+	void stopRecord();
 	ofxOpenNIContext& getContext();
 	ofxDepthGenerator& getDepthGen();
 	ofxImageGenerator& getImageGen();
@@ -34,6 +37,7 @@ public:
 	ofxImageGenerator image;
 	ofxDepthGenerator depth;
 	ofxUserGenerator user;
+	ofxOpenNIRecorder recorder;
 	//ofxHandDetector hand;
 	
 private:
