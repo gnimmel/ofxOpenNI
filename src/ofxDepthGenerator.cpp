@@ -170,7 +170,7 @@ void ofxDepthGenerator::generateTexture(){
 		int x_dx = dmd.XOffset();
 		unsigned char * texture = (unsigned char*)depth_pixels + y_dx * 4 + x_dx *4;
 		for(XnUInt x = 0; x < dmd.XRes();  x++, depth++, texture+=4) {
-			if(*depth != 0) {
+			if(*depth != 0 && *depth <= back) {
 				int hist_value = depth_hist[*depth];
 				texture[0] = hist_value;
 				texture[1] = hist_value;
