@@ -93,7 +93,6 @@ bool ofxDepthGenerator::setup(ofxOpenNIContext* pContext) {
 	
 	
 	//Set the input to VGA (standard is QVGA wich is not supported on the Kinect)
-
 	XnMapOutputMode map_mode; 
 	map_mode.nXRes = XN_VGA_X_RES; 
 	map_mode.nYRes = XN_VGA_Y_RES;

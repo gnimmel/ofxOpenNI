@@ -33,7 +33,10 @@ public:
 	ofVec3f getUserCenter(int nUserNum);
 	
 	std::vector<ofxTrackedUser*> getTrackedUsers();
-
+	
+	void setUseCentimeters(bool bDoScale);
+	void setUseProjective(bool bDoProjective);
+	
 private:	
 	void drawUsers();
 	void drawUser(int nUserNum);

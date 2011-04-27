@@ -269,17 +269,7 @@ void ofxUserGenerator::draw() {
 	if(!is_initialized) {
 		return;
 	}
-
 	drawUsers();
-	/*
-	if(!found_user) {
-		glColor3f(1.0, 0, 0);
-	}
-	else {
-		glColor3f(0.0, 1, 0);
-	}
-	ofCircle(10,10,10);
-	*/
 }
 
 
@@ -302,3 +292,20 @@ void ofxUserGenerator::startTracking(XnUserID nID) {
 bool ofxUserGenerator::needsPoseForCalibration() {
 	return needs_pose;
 }
+
+void ofxUserGenerator::setUseCentimeters(bool bDoScale) {
+	vector<ofxTrackedUser*>::iterator it = tracked_users.begin();
+	while(it != tracked_users.end()) {
+		(*it)->setUseCentimeters(bDoScale);
+		++it;
+	}
+}
+
+void ofxUserGenerator::setUseProjective(bool bDoProjective) {
+	vector<ofxTrackedUser*>::iterator it = tracked_users.begin();
+	while(it != tracked_users.end()) {
+		(*it)->setUseProjective(bDoProjective);
+		++it;
+	}	
+}
+	

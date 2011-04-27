@@ -3,6 +3,7 @@
 #include <XnOpenNI.h>
 #include <XnCppWrapper.h>
 #include "ofMain.h"
+#include "ofxOpenNITypes.h"
 
 struct ofxLimb {
 	ofxLimb(XnSkeletonJoint nStartJoint, XnSkeletonJoint nEndJoint) 
@@ -41,12 +42,20 @@ struct ofxLimb {
 	
 };
 
+
+
+
 class ofxUserGenerator;
 class ofxDepthGenerator;
 class ofxTrackedUser {
 public: 
+	ofxTrackedUser();
 	void debugDraw();
-		
+	ofVec3f getCenter();
+	void setUseCentimeters(bool bDoScale);
+	void setUseProjective(bool bDoProjective);
+	
+
 
 	ofxLimb neck;
 	
@@ -77,7 +86,7 @@ public:
 	ofxLimb hip;
 	XnUserID id;
 	
-	ofVec3f getCenter();
+	int options;
 
 private:
 	ofxTrackedUser(ofxUserGenerator* pGenerator, ofxDepthGenerator* pDepthGenerator);

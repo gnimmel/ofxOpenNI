@@ -37,6 +37,7 @@ ofxTrackedUser::ofxTrackedUser(
 ,depth_generator(pDepthGenerator) 
 ,xn_user_generator(&user_generator->getXnUserGenerator())
 ,is_tracked(false)
+,options(ONI_CONVERT_PROJECTIVE)
 {
 }
 
@@ -70,6 +71,15 @@ void ofxTrackedUser::updateBonePositions() {
 	updateLimb(hip);	
 }
 
+void ofxTrackedUser::setUseCentimeters(bool bDoScale) {
+	options = (!bDoScale) ? options & ~ONI_RESCALE_LIMBS	: options | ONI_RESCALE_LIMBS;
+}
+
+void ofxTrackedUser::setUseProjective(bool bDoProjective) {
+	options = (!bDoProjective) ? options & ~ONI_CONVERT_PROJECTIVE	: options | ONI_CONVERT_PROJECTIVE;	
+}
+
+
 ofVec3f ofxTrackedUser::getCenter() {
 	return (neck.begin + neck.end) * 0.5;
 }
@@ -91,13 +101,24 @@ void ofxTrackedUser::updateLimb(ofxLimb& rLimb) {
 	XnPoint3D pos[2];
 	pos[0] = a.position;
 	pos[1] = b.position;
-	/*
-	depth_generator->getXnDepthGenerator()
-		.ConvertRealWorldToProjective(2, pos, pos);
-*/
+	
+	// Convert positions to projective.
+	if(options & ONI_CONVERT_PROJECTIVE) { 
+		depth_generator->getXnDepthGenerator().ConvertRealWorldToProjective(2, pos, pos);
+	}
+	
+	// Convert to centimeters.
+	if(options & ONI_RESCALE_LIMBS) {
+		rLimb.begin.set(pos[0].X/10, pos[0].Y/10, -pos[0].Z/10);
+		rLimb.end.set(pos[1].X/10, pos[1].Y/10, -pos[1].Z/10);	
+	}
+	else {
+		rLimb.begin.set(pos[0].X, pos[0].Y, -pos[0].Z);
+		rLimb.end.set(pos[1].X, pos[1].Y, -pos[1].Z);	
+	}
+	
 	rLimb.found = true;
-	rLimb.begin.set(pos[0].X/10, pos[0].Y/10, -pos[0].Z/10);
-	rLimb.end.set(pos[1].X/10, pos[1].Y/10, -pos[1].Z/10);	
+	
 	//cout << rLimb.begin << endl;
 }
 
