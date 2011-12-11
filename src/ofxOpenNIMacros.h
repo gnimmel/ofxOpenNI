@@ -1,21 +1,23 @@
 #define CHECK_RC(rc, what)											\
-	if (rc != XN_STATUS_OK)											\
-	{																\
-		printf("%s failed: %s\n", what, xnGetStatusString(rc));		\
-		return rc;													\
-	}
+if (rc != XN_STATUS_OK)												\
+{																	\
+	printf("%s failed: %s\n", what, xnGetStatusString(rc));			\
+} else {															\
+	printf("%s succeed: %s\n", what, xnGetStatusString(rc));		\
+}
 
-#define BOOL_RC(rc, what)											\
+#define BOOL_RC(rc, what) 											\
 if (rc != XN_STATUS_OK)												\
 {																	\
 	printf("%s failed: %s\n", what, xnGetStatusString(rc));			\
 	return false;													\
 }																	\
-return true;
+printf("%s succeed: %s\n", what, xnGetStatusString(rc));			\
+return true;														\
+
 
 #define SHOW_RC(rc, what)											\
-	printf("%s status: %s\n", what, xnGetStatusString(rc));			\
-																	\
+	printf("%s status: %s\n", what, xnGetStatusString(rc));
 
 
 #define CHECK_RC_ERR(rc, what, error)								\
